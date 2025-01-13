@@ -1,0 +1,34 @@
+.organization-dashboard {
+    padding: 20px;
+  }
+  
+  .opportunities-list,
+  .events-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .opportunity-card,
+  .event-card {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .opportunity-card h3,
+  .event-card h3 {
+    margin: 0 0 10px;
+    color: #333;
+  }
+  
+  .opportunity-card p,
+  .event-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
