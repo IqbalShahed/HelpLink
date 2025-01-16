@@ -33,7 +33,6 @@ const VolunteerDashboard = () => {
     fetchDashboardData();
   }, []);
 
-
   return (
     <div className="volunteer-dashboard">
       <h1 className="text-3xl font-bold">Volunteer Dashboard</h1>
@@ -45,15 +44,18 @@ const VolunteerDashboard = () => {
           <section>
             <h2 className="text-2xl">Applied Opportunities</h2>
             {appliedOpportunities.length > 0 ? (
-              appliedOpportunities.map((opportunity) => (
-                <div key={opportunity._id} className="dashboard-card">
-                  <h3 className="font-bold">{opportunity.opportunity.title}</h3>
-                  <p><strong>Location:</strong> {opportunity.opportunity.location}</p>
-                  <p><strong>Cause:</strong> {opportunity.opportunity.cause}</p>
-                  <p><strong>Schedule:</strong> {opportunity.opportunity.schedule}</p>
-                  <p><strong>Status:</strong> {opportunity.status}</p>
-                </div>
-              ))
+              appliedOpportunities.map((opportunity) => {
+                const oppDetails = opportunity.opportunity || {}; // Ensure it has a valid object
+                return (
+                  <div key={opportunity._id} className="dashboard-card">
+                    <h3 className="font-bold">{oppDetails.title || "Title not available"}</h3>
+                    <p><strong>Location:</strong> {oppDetails.location || "Location not available"}</p>
+                    <p><strong>Cause:</strong> {oppDetails.cause || "Cause not available"}</p>
+                    <p><strong>Schedule:</strong> {oppDetails.schedule || "Schedule not available"}</p>
+                    <p><strong>Status:</strong> {opportunity.status || "Status not available"}</p>
+                  </div>
+                );
+              })
             ) : (
               <p>You haven’t applied to any opportunities yet.</p>
             )}

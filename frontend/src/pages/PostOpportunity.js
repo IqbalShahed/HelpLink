@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/PostOpportunity.css";
 
 const PostOpportunity = () => {
     const [formData, setFormData] = useState({
@@ -8,7 +7,8 @@ const PostOpportunity = () => {
         description: "",
         requiredSkills: "",
         location: "",
-        schedule: "",
+        scheduleStart: "",
+        scheduleEnd: "",
         cause: "",
     });
 
@@ -26,15 +26,17 @@ const PostOpportunity = () => {
         setError("");
 
         try {
-            // Convert skills string to an array
             const skillsArray = formData.requiredSkills
                 .split(",")
                 .map((skill) => skill.trim())
-                .filter((skill) => skill); // Remove empty skills
+                .filter((skill) => skill);
+
+            const schedule = `${formData.scheduleStart} to ${formData.scheduleEnd}`;
 
             const postData = {
                 ...formData,
                 requiredSkills: skillsArray,
+                schedule,
             };
 
             const response = await axios.post(
@@ -54,7 +56,8 @@ const PostOpportunity = () => {
                     description: "",
                     location: "",
                     requiredSkills: "",
-                    schedule: "",
+                    scheduleStart: "",
+                    scheduleEnd: "",
                     cause: "",
                 });
             }
@@ -67,89 +70,149 @@ const PostOpportunity = () => {
     };
 
     return (
-        <div className="post-opportunity">
-            <h2>Post an Opportunity</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        placeholder="Enter opportunity title"
-                        required
-                    />
-                </div>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="post-opportunity max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
+                <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">
+                    Post an Opportunity
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-600">
+                            Title
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            placeholder="Enter opportunity title"
+                            required
+                            className="border rounded py-2 px-3 w-full"
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        placeholder="Provide a brief description"
-                        required
-                    ></textarea>
-                </div>
+                    <div>
+                        <label
+                            htmlFor="description"
+                            className="block text-sm font-medium text-gray-600"
+                        >
+                            Description
+                        </label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Provide a brief description"
+                            required
+                            className="border rounded py-2 px-3 w-full"
+                        ></textarea>
+                    </div>
 
-                <div>
-                    <label htmlFor="location">Location</label>
-                    <input
-                        type="text"
-                        id="location"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleChange}
-                        placeholder="e.g., New York City"
-                        required
-                    />
-                </div>
+                    <div>
+                        <label htmlFor="location" className="block text-sm font-medium text-gray-600">
+                            Location
+                        </label>
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            value={formData.location}
+                            onChange={handleChange}
+                            placeholder="e.g., Dhaka"
+                            required
+                            className="border rounded py-2 px-3 w-full"
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="skills">Required Skills (comma-separated)</label>
-                    <input
-                        type="text"
-                        id="requiredSkills"
-                        name="requiredSkills"
-                        value={formData.requiredSkills}
-                        onChange={handleChange}
-                        placeholder="e.g., teamwork, communication"
-                    />
-                </div>
+                    <div>
+                        <label
+                            htmlFor="requiredSkills"
+                            className="block text-sm font-medium text-gray-600"
+                        >
+                            Required Skills (comma-separated)
+                        </label>
+                        <input
+                            type="text"
+                            id="requiredSkills"
+                            name="requiredSkills"
+                            value={formData.requiredSkills}
+                            onChange={handleChange}
+                            placeholder="e.g., teamwork, communication"
+                            className="border rounded py-2 px-3 w-full"
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="schedule">Schedule</label>
-                    <input
-                        type="datetime-local"
-                        id="schedule"
-                        name="schedule"
-                        value={formData.schedule}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                htmlFor="scheduleStart"
+                                className="block text-sm font-medium text-gray-600"
+                            >
+                                Schedule Start
+                            </label>
+                            <input
+                                type="datetime-local"
+                                id="scheduleStart"
+                                name="scheduleStart"
+                                value={formData.scheduleStart}
+                                onChange={handleChange}
+                                required
+                                className="border rounded py-2 px-3 w-full"
+                            />
+                        </div>
 
-                <div>
-                    <label htmlFor="cause">Cause</label>
-                    <input
-                        type="text"
-                        id="cause"
-                        name="cause"
-                        value={formData.cause}
-                        onChange={handleChange}
-                        placeholder="e.g., education, environment"
-                        required
-                    />
-                </div>
+                        <div>
+                            <label
+                                htmlFor="scheduleEnd"
+                                className="block text-sm font-medium text-gray-600"
+                            >
+                                Schedule End
+                            </label>
+                            <input
+                                type="datetime-local"
+                                id="scheduleEnd"
+                                name="scheduleEnd"
+                                value={formData.scheduleEnd}
+                                onChange={handleChange}
+                                required
+                                className="border rounded py-2 px-3 w-full"
+                            />
+                        </div>
+                    </div>
 
-                <button type="submit">Post Opportunity</button>
-            </form>
+                    <div>
+                        <label htmlFor="cause" className="block text-sm font-medium text-gray-600">
+                            Cause
+                        </label>
+                        <input
+                            type="text"
+                            id="cause"
+                            name="cause"
+                            value={formData.cause}
+                            onChange={handleChange}
+                            placeholder="e.g., education, environment"
+                            required
+                            className="border rounded py-2 px-3 w-full"
+                        />
+                    </div>
 
-            {message && <p className="success-message">{message}</p>}
-            {error && <p className="error-message">{error}</p>}
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        Post Opportunity
+                    </button>
+                </form>
+
+                {message && (
+                    <p className="mt-4 text-green-600 text-center font-semibold">{message}</p>
+                )}
+                {error && (
+                    <p className="mt-4 text-red-600 text-center font-semibold">{error}</p>
+                )}
+            </div>
         </div>
     );
 };
