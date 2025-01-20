@@ -49,6 +49,8 @@ const Home = () => {
                         title={opportunity.title}
                         description={opportunity.description}
                         location={opportunity.location}
+                        scheduleStart={opportunity.scheduleStart}
+                        scheduleEnd={opportunity.scheduleEnd}
                         onClick={() => handleDetailsClick(opportunity._id)}
                     />
                 ))}

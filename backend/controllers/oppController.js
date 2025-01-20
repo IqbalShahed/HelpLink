@@ -2,14 +2,15 @@ const Opportunity = require("../models/Opportunity");
 
 const postOpportunity = async (req, res) => {
     try {
-        const { title, description, requiredSkills, location, schedule, cause } = req.body;
+        const { title, description, requiredSkills, location, scheduleStart, scheduleEnd, cause } = req.body;
 
         const newOpportunity = new Opportunity({
             title,
             description,
             requiredSkills,
             location,
-            schedule,
+            scheduleStart,
+            scheduleEnd,
             cause,
             organization: req.user._id
         })

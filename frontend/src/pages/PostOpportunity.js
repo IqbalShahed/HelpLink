@@ -31,12 +31,9 @@ const PostOpportunity = () => {
                 .map((skill) => skill.trim())
                 .filter((skill) => skill);
 
-            const schedule = `${formData.scheduleStart} to ${formData.scheduleEnd}`;
-
             const postData = {
                 ...formData,
                 requiredSkills: skillsArray,
-                schedule,
             };
 
             const response = await axios.post(
@@ -192,7 +189,7 @@ const PostOpportunity = () => {
                             name="cause"
                             value={formData.cause}
                             onChange={handleChange}
-                            placeholder="e.g., education, environment"
+                            placeholder="e.g., education, environment, health, others"
                             required
                             className="border rounded py-2 px-3 w-full"
                         />

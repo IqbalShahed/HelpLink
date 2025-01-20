@@ -3,6 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const OpportunityDetails = () => {
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options);
+    };
     const { id } = useParams(); // Opportunity ID
     const [opportunity, setOpportunity] = useState(null);
     const [message, setMessage] = useState('');
@@ -85,7 +90,7 @@ const OpportunityDetails = () => {
             </p>
 
             <p className="text-gray-500 text-sm mb-2">
-                <strong className="text-gray-800">Schedule:</strong> {opportunity.schedule}
+                <strong className="text-gray-800">Schedule:</strong> {`${formatDate(opportunity.scheduleStart)} to ${formatDate(opportunity.scheduleEnd)}`}
             </p>
 
             {/* Application Section */}
