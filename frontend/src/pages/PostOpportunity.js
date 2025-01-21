@@ -11,6 +11,7 @@ const PostOpportunity = () => {
         scheduleEnd: "",
         cause: "",
     });
+    const [image, setImage] = useState(null); // For storing the image file
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
@@ -18,6 +19,10 @@ const PostOpportunity = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -31,14 +36,19 @@ const PostOpportunity = () => {
                 .map((skill) => skill.trim())
                 .filter((skill) => skill);
 
-            const postData = {
+            const newFormData = {
                 ...formData,
-                requiredSkills: skillsArray,
-            };
+                requiredSkills: skillsArray
+            }
+            const formDataWithImage = new FormData();
+            formDataWithImage.append("image", image); // Append the image file
+            for (const key in newFormData) {
+                formDataWithImage.append(key, newFormData[key]);
+            }
 
             const response = await axios.post(
                 "http://localhost:5000/api/opportunities/postOpportunity",
-                postData,
+                formDataWithImage,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -57,6 +67,8 @@ const PostOpportunity = () => {
                     scheduleEnd: "",
                     cause: "",
                 });
+                setImage(null);
+
             }
         } catch (err) {
             console.error("Error posting opportunity:", err);
@@ -105,6 +117,26 @@ const PostOpportunity = () => {
                             required
                             className="border rounded py-2 px-3 w-full"
                         ></textarea>
+                    </div>
+                    <div>
+                        <label
+                            htmlFor="image"
+                            className="block text-sm font-medium text-gray-600"
+                        >
+                            Upload Image
+                        </label>
+                        <input
+                            type="file"
+                            id="image"
+                            onChange={handleImageChange}
+                            accept="image/*"
+                            className="border rounded py-2 px-3 block w-full text-sm text-slate-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-blue-50 file:text-blue-700
+                            hover:file:bg-blue-100"
+                        />
                     </div>
 
                     <div>

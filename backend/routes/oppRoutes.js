@@ -3,6 +3,8 @@ const Opportunity = require('../models/Opportunity');
 const { roleAuth } = require('../middleware/roleMiddleware');
 const { protect } = require('../middleware/authMiddleware');
 const oppController = require('../controllers/oppController');
+const upload = require("../middleware/upload");
+
 
 
 const router = express.Router();
@@ -14,7 +16,7 @@ const router = express.Router();
  * @access Organization only
  */
 
-router.post('/postOpportunity', protect, roleAuth(['organization']), oppController.postOpportunity);
+router.post('/postOpportunity', protect, roleAuth(['organization']), upload.single("image"), oppController.postOpportunity);
 
 
 /**

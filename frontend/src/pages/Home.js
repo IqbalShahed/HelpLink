@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Card from '../components/Card';
+import OpportunityCard from '../components/OpportunityCard';
 
 const Home = () => {
     const [opportunities, setOpportunities] = useState([]);
@@ -44,13 +44,14 @@ const Home = () => {
             {error && <p className="text-red-500 text-center mb-4">{error}</p>}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {opportunities.map((opportunity) => (
-                    <Card
+                    <OpportunityCard
                         key={opportunity._id}
                         title={opportunity.title}
                         description={opportunity.description}
                         location={opportunity.location}
                         scheduleStart={opportunity.scheduleStart}
                         scheduleEnd={opportunity.scheduleEnd}
+                        image={opportunity.image}
                         onClick={() => handleDetailsClick(opportunity._id)}
                     />
                 ))}

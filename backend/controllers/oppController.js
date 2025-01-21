@@ -12,6 +12,7 @@ const postOpportunity = async (req, res) => {
             scheduleStart,
             scheduleEnd,
             cause,
+            image: req.file ? `/uploads/${req.file.filename}` : null, // Save image path
             organization: req.user._id
         })
 
