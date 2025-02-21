@@ -1,7 +1,7 @@
 const express = require('express');
 const Organization = require('../models/Organization');
 const { protect } = require('../middleware/authMiddleware');
-const orgController = require('../controllers/OrgController');
+const orgController = require('../controllers/orgController');
 
 
 const router = express.Router();
