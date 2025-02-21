@@ -47,7 +47,7 @@ const PostOpportunity = () => {
             }
 
             const response = await axios.post(
-                "http://localhost:5000/api/opportunities/postOpportunity",
+                "https://helplink.onrender.com/api/opportunities/postOpportunity",
                 formDataWithImage,
                 {
                     headers: {
