@@ -14,7 +14,7 @@ const VolunteerDashboard = () => {
 
         // Fetch applied opportunities
         const opportunitiesResponse = await axios.get(
-          "http://localhost:5000/api/applications/my-applications",
+          "https://helplink.onrender.com/api/applications/my-applications",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
