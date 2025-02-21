@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         const fetchOpportunities = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/opportunities/allOpportunities');
+                const response = await axios.get('https://helplink.onrender.com/api/opportunities/allOpportunities');
                 setOpportunities(response.data);
             } catch (err) {
                 console.error(err);
