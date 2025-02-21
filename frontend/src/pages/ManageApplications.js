@@ -10,7 +10,7 @@ const ManageApplications = () => {
         const fetchApplications = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:5000/api/applications/manage",
+                    "https://helplink.onrender.com/api/applications/manage",
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,7 +30,7 @@ const ManageApplications = () => {
     const updateApplicationStatus = async (applicationId, newStatus) => {
         try {
             const response = await axios.patch(
-                `http://localhost:5000/api/applications/${applicationId}/status`,
+                `https://helplink.onrender.com/api/applications/${applicationId}/status`,
                 { status: newStatus },
                 {
                     headers: {
