@@ -18,7 +18,7 @@ const OpportunityDetails = () => {
     useEffect(() => {
         const fetchOpportunityDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/opportunities/${id}`);
+                const response = await axios.get(`https://helplink.onrender.com/api/opportunities/${id}`);
                 setOpportunity(response.data);
             } catch (err) {
                 console.error(err.message);
@@ -37,14 +37,14 @@ const OpportunityDetails = () => {
         }
 
         //  console.log('Making API call:', {
-        //     url: 'http://localhost:5000/api/applications',
+        //     url: 'https://helplink.onrender.com/api/applications',
         //     data: { id, message },
         //     headers: { Authorization: `Bearer ${token}` },
         // });
 
         try {
             const response = await axios.post(
-                `http://localhost:5000/api/applications`,
+                `https://helplink.onrender.com/api/applications`,
                 { opportunityId: id, message },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
