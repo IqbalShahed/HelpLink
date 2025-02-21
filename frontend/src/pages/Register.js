@@ -118,7 +118,7 @@ const Register = () => {
             };
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/${payload.role}/register`, payload);
+            const response = await axios.post(`https://helplink.onrender.com/api/${payload.role}/register`, payload);
             // setSuccess('Registration successful! Please login.');
 
             if (response.status === 201) {
