@@ -15,7 +15,7 @@ const OrganizationDashboard = () => {
 
         // Fetch posted opportunities
         const opportunitiesResponse = await axios.get(
-          "http://localhost:5000/api/opportunities/my-opportunities",
+          "https://helplink.onrender.com/api/opportunities/my-opportunities",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
