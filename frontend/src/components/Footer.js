@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className='bg-gray-800 text-white p-4 mt-auto'>
             <div className='container mx-auto text-center'>
-                <p>© 2024 HelpLink. All rights reserved.</p>
+                <p>© 2025 HelpLink. All rights reserved.</p>
             </div>
         </footer>
     );
