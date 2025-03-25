@@ -1,0 +1,93 @@
+name: Fullstack CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: "npm"
+
+      - name: Install Dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Run Test
+        working-directory: backend
+        run: npm test
+  deploy-backend:
+    needs: test-backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: "npm"
+
+      - name: Install Dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Deploy to Render
+        if: github.ref == 'refs/headers/main'
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node JS
+        uses: actions/setup-node@v4
+        with:
+            node-version: 21
+            cache: "npm"
+
+      - name: Install Dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Run Tests
+        working-directory: frontend
+        run: npm test
+  deploy-frontend:
+      needs: test-frontend
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+
+        - name: Setup Node JS
+          uses: actions/setup-node@v4
+          with:
+            node-version: 21
+            cache: "npm"
+          
+        - name: Install Dependencies
+          working-directory: frontend
+          run: npm install
+
+        - name: Build React App
+          working-directory: frontend
+          run: npm build
+
+        - name: Deploy to Render
+          if: github.ref == 'refs/heads/main'
+          run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+
